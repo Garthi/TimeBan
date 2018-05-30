@@ -1,0 +1,16 @@
+[
+{
+  "modid": "timebanmod",
+  "name": "Time Ban Mod",
+  "description": "Ban players for x minutes from your server.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Garthi"],
+  "credits": "The Forge and FML guys.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
