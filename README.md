@@ -2,7 +2,13 @@
 a Minecraft 1.12.2 Forge 14.23.4.2705 mod
 
 # About
-...
+TimeBan is a Minecraft add-on to help Server owner
+
+#### Features
+
+- Players ban over a period of time
+- Death ban over a period of time
+    - Configurable Death ban and Death ban time 
 
 # License
 The MIT License (MIT)
@@ -26,3 +32,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 **Copyright (c) 2015 Martin Zander**
+
+# Developers & Credits
+Lead Developer: Garthi
+
+Idea: Balui
