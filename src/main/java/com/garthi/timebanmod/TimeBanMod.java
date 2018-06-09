@@ -82,15 +82,30 @@ public class TimeBanMod
         // set player to World Spawn
         BlockPos blockPos = player.getEntityWorld().getSpawnPoint();
         player.setPositionAndUpdate(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-        
-        // kick and ban player
-        try {
-            int banTime = ConfigHelper.player(player.getName()).getDeathBanTime();
-            ConfigHelper.player(player.getName()).add(banTime);
-            player.connection.disconnect(new TextComponentTranslation("time.ban.custom.death.message", banTime));
-        } catch (NotLoadedException e) {
-            FMLLog.log.error(e.getMessage());
-        }
+
+        Thread thread = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                try {
+                    // wait a second for server lag
+                    sleep(100);
+                } catch (InterruptedException e) {
+                    // no report
+                }
+
+                // kick and ban player
+                try {
+                    int banTime = ConfigHelper.player(player.getName()).getDeathBanTime();
+                    ConfigHelper.player(player.getName()).add(banTime);
+                    player.connection.disconnect(new TextComponentTranslation("time.ban.custom.death.message", banTime));
+                } catch (NotLoadedException e) {
+                    FMLLog.log.error(e.getMessage());
+                }
+            }
+        };
+        thread.start();
     }
     
     private Boolean isPlayerBanned(FMLNetworkEvent.ServerConnectionFromClientEvent event)
