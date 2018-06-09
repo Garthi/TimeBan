@@ -78,7 +78,10 @@ public class TimeBanMod
         
         // drop all Items
         InventoryHelper.dropInventoryItems(player.world, player, player.inventory);
-        
+
+        // remove player experience
+        player.addExperienceLevel(-30);
+
         // set player to World Spawn
         BlockPos blockPos = player.getEntityWorld().getSpawnPoint();
         player.setPositionAndUpdate(blockPos.getX(), blockPos.getY(), blockPos.getZ());
