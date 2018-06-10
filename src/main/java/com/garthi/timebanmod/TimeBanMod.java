@@ -95,7 +95,7 @@ public class TimeBanMod
                 try {
                     // wait a second for server lag
                     sleep(100);
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     // no report
                 }
 
