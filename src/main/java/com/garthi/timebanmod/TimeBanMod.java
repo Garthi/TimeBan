@@ -11,6 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -97,6 +98,14 @@ public class TimeBanMod
         }
     }
     
+    @SubscribeEvent
+    public void renderName(PlayerEvent.NameFormat event)
+    {
+        if (event.getEntityPlayer().getName().equals("BaluiLP")) {
+            event.setDisplayname("Der unfähige Feuermagier");
+        }
+    }
+
     private Boolean isPlayerBanned(FMLNetworkEvent.ServerConnectionFromClientEvent event)
     {
         if (event.isLocal()) {
