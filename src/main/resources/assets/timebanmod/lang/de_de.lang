@@ -2,3 +2,5 @@
 time.ban.default.message=Du bist gebannt
 time.ban.custom.message=Du bist gebannt: %s
 time.ban.custom.death.message=Du bist gestorben, deine Wiedergeburt wird vorbereitet, dies kann bis zu %s Minuten dauern
+
+time.ban.command.time.ban.help=Benutze /%s <SpielerName> <Minuten>
