@@ -47,7 +47,7 @@ public class TimeBanCommand extends CommandBase
                 int banTime = 0;
                 String playerName = args[0]; 
                 
-                // check params
+                // TODO: check params
                 
                 // get player object
                 ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback()
