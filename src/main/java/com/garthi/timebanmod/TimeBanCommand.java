@@ -3,11 +3,11 @@ package com.garthi.timebanmod;
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.ProfileLookupCallback;
-import com.typesafe.config.ConfigException;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -44,25 +44,48 @@ public class TimeBanCommand extends CommandBase
                     return;
                 }
                 
-                int banTime = 0;
-                String playerName = args[0]; 
+                if (args[1] == null || Integer.parseInt(args[1]) < 1) {
+                    sender.sendMessage(new TextComponentTranslation("time.ban.command.time.ban.help", COMMAND_NAME));
+                    return;
+                }
                 
-                // TODO: check params
+                int banTime = Integer.parseInt(args[1]);
+                String playerName = args[0]; 
                 
                 // get player object
                 ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback()
                 {
-                    public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_)
+                    public void onProfileLookupSucceeded(GameProfile gameProfile)
                     {
-                        // TODO: kick player
+                        // ban player
+                        try {
+                            ConfigHelper.player(gameProfile.getName()).add(banTime);
+                        } catch (NotLoadedException e) {
+                            FMLLog.log.catching(e);
+                        }
                         
-                        // feedback
-                        sender.sendMessage(new TextComponentString("Spieler " + playerName + " wurde gefunden"));
+                        // kick player
+                        try {
+                            EntityPlayerMP entityPlayerMP = (EntityPlayerMP)sender.getEntityWorld().getPlayerEntityByName(playerName);
+                            assert entityPlayerMP != null;
+                            entityPlayerMP.connection.disconnect(new TextComponentTranslation(
+                                    "time.ban.command.time.ban.message",
+                                    sender.getDisplayName().getFormattedText(),
+                                    String.valueOf(banTime),
+                                    (new TextComponentTranslation("time.ban.command.time.ban.message.minutes")).getFormattedText()
+                            ));
+
+                            // feedback
+                            sender.sendMessage(new TextComponentTranslation("time.ban.command.time.ban.success.message", gameProfile.getName()));
+                        } catch (Exception e) {
+                            FMLLog.log.catching(e);
+                            sender.sendMessage(new TextComponentTranslation("time.ban.command.time.ban.fail.message", playerName));
+                        }
                     }
                     public void onProfileLookupFailed(GameProfile p_onProfileLookupFailed_1_, Exception p_onProfileLookupFailed_2_)
                     {
                         // feedback for fail
-                        sender.sendMessage(new TextComponentString("Spieler " + playerName + " wurde nicht gefunden"));
+                        sender.sendMessage(new TextComponentTranslation("time.ban.command.time.ban.fail.message", playerName));
                     }
                 };
                 
@@ -73,16 +96,6 @@ public class TimeBanCommand extends CommandBase
                 } catch (NullPointerException e) {
                     FMLLog.log.catching(e);
                 }
-                
-                // ban player
-                try {
-                    ConfigHelper.player(playerName).add(banTime);
-                } catch (NotLoadedException e) {
-                    FMLLog.log.catching(e);
-                }
-                
-                // feedback to op
-                sender.sendMessage(new TextComponentString("Hello " + args[0]));
             } else {
                 assert sender != null;
                 sender.sendMessage(new TextComponentString(
