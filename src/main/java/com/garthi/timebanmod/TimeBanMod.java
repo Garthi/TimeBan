@@ -101,7 +101,7 @@ public class TimeBanMod
     @SubscribeEvent
     public void renderName(PlayerEvent.NameFormat event)
     {
-        if (event.getEntityPlayer().getName().equals("BaluiLP")) {
+        if (event.getEntityPlayer().getName().equals("Balui")) {
             event.setDisplayname("Der unfähige Feuermagier");
         }
     }
