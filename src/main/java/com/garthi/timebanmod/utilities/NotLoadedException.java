@@ -1,4 +1,4 @@
-package com.garthi.timebanmod;
+package com.garthi.timebanmod.utilities;
 
 /**
  * @author Martin "Garth" Zander <garth@new-crusader.de>

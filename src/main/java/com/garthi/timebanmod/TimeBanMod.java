@@ -1,5 +1,10 @@
 package com.garthi.timebanmod;
 
+import com.garthi.timebanmod.commands.DayBanCommand;
+import com.garthi.timebanmod.commands.ListBanCommand;
+import com.garthi.timebanmod.commands.TimeBanCommand;
+import com.garthi.timebanmod.utilities.ConfigHelper;
+import com.garthi.timebanmod.utilities.NotLoadedException;
 import net.minecraft.command.CommandBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -27,10 +32,12 @@ public class TimeBanMod
 {
     static final String MODID = "timebanmod";
     static final String NAME = "Time Ban Mod";
-    static final String VERSION = "0.5";
+    static final String VERSION = "0.6";
     
     /** Commands **/
     private static CommandBase TIME_BAN_COMMAND = new TimeBanCommand();
+    private static CommandBase DAY_BAN_COMMAND = new DayBanCommand();
+    private static CommandBase LIST_BAN_COMMAND = new ListBanCommand();
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -45,8 +52,11 @@ public class TimeBanMod
     }
     
     @EventHandler
-    public void registerCommands(FMLServerStartingEvent event) {
+    public void registerCommands(FMLServerStartingEvent event)
+    {
         event.registerServerCommand(TIME_BAN_COMMAND);
+        event.registerServerCommand(DAY_BAN_COMMAND);
+        //event.registerServerCommand(LIST_BAN_COMMAND);
     }
     
     @SubscribeEvent
@@ -101,7 +111,7 @@ public class TimeBanMod
     @SubscribeEvent
     public void renderName(PlayerEvent.NameFormat event)
     {
-        if (event.getEntityPlayer().getName().equals("BaluiLP")) {
+        if (event.getEntityPlayer().getName().equals("Balui")) {
             event.setDisplayname("Der unfähige Feuermagier");
         }
     }
