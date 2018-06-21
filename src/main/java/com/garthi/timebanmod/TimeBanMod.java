@@ -16,6 +16,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -85,7 +86,7 @@ public class TimeBanMod
             FMLLog.log.error(e.getMessage());
         }
         
-        FMLLog.log.info("player is death: " + player.getName());
+        FMLLog.log.info("player is death: {}", player.getName());
         
         // drop all Items
         InventoryHelper.dropInventoryItems(player.world, player, player.inventory);
@@ -96,32 +97,25 @@ public class TimeBanMod
         // set player to World Spawn
         BlockPos blockPos = player.getEntityWorld().getSpawnPoint();
         player.setPositionAndUpdate(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-
-        Thread thread = new Thread()
-        {
-            @Override
-            public void run()
-            {
-                try {
-                    // wait a second for server lag
-                    sleep(100);
-                } catch (Exception e) {
-                    // no report
-                }
-
-                // kick and ban player
-                try {
-                    int banTime = ConfigHelper.player(player.getName()).getDeathBanTime();
-                    ConfigHelper.player(player.getName()).add(banTime);
-                    player.connection.disconnect(new TextComponentTranslation("time.ban.custom.death.message", banTime));
-                } catch (NotLoadedException e) {
-                    FMLLog.log.error(e.getMessage());
-                }
-            }
-        };
-        thread.start();
+        
+        // kick and ban player
+        try {
+            int banTime = ConfigHelper.player(player.getName()).getDeathBanTime();
+            ConfigHelper.player(player.getName()).add(banTime);
+            player.connection.disconnect(new TextComponentTranslation("time.ban.custom.death.message", banTime));
+        } catch (NotLoadedException e) {
+            FMLLog.log.error(e.getMessage());
+        }
     }
     
+    @SubscribeEvent
+    public void renderName(PlayerEvent.NameFormat event)
+    {
+        if (event.getEntityPlayer().getName().equals("Balui")) {
+            event.setDisplayname("Der unfähige Feuermagier");
+        }
+    }
+
     private Boolean isPlayerBanned(FMLNetworkEvent.ServerConnectionFromClientEvent event)
     {
         if (event.isLocal()) {
