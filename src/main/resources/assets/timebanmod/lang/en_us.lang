@@ -8,6 +8,6 @@ time.ban.command.time.ban.help=use /%s <PlayerName> <Minutes>
 time.ban.command.time.ban.fail.message=can't find player %s
 time.ban.command.time.ban.success.message=Player %s was banned
 time.ban.command.time.ban.message=You are banned from %s for %s %s from Server.
-time.ban.command.time.ban.message.minutes=minutes
 
+time.ban.command.time.ban.message.minutes=minutes
 time.ban.command.time.ban.message.hour=hours

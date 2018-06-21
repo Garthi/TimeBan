@@ -7,7 +7,7 @@ time.ban.command.time.ban.help=Benutze /%s <SpielerName> <%s>
 
 time.ban.command.time.ban.fail.message=Spieler %s konnte nicht gefunden werden
 time.ban.command.time.ban.success.message=Spieler %s wurde Gebannt
-time.ban.command.time.ban.message=Du wurdest von %s für %s %s vom Server Gebannt.
+time.ban.command.time.ban.message=Du wurdest von %s fÃ¼r %s %s vom Server Gebannt.
 
 time.ban.command.time.ban.message.minutes=Minuten
 time.ban.command.time.ban.message.hour=Stunden
