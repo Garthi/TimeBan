@@ -1,4 +1,4 @@
-package com.garthi.timebanmod;
+package com.garthi.timebanmod.utilities;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
