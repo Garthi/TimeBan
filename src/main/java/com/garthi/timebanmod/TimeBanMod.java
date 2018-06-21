@@ -31,7 +31,7 @@ public class TimeBanMod
 {
     static final String MODID = "timebanmod";
     static final String NAME = "Time Ban Mod";
-    static final String VERSION = "0.5";
+    static final String VERSION = "0.6";
     
     /** Commands **/
     private static CommandBase TIME_BAN_COMMAND = new TimeBanCommand();
