@@ -34,6 +34,8 @@ public class ListBanCommand extends CommandBase
             sender.sendMessage(new TextComponentString(
                     EntityPlayer.EnumChatVisibility.SYSTEM + "Liste der gebannten spieler"
             ));
+            // TODO show time banned player
+            // TODO show banned players from origin
         } else {
             sender.sendMessage(new TextComponentString(
                     EntityPlayer.EnumChatVisibility.SYSTEM + "This command is not available inside the console."
