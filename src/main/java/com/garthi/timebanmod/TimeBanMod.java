@@ -14,6 +14,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.GameType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -37,7 +38,7 @@ public class TimeBanMod
     /** Commands **/
     private static CommandBase TIME_BAN_COMMAND = new TimeBanCommand();
     private static CommandBase DAY_BAN_COMMAND = new DayBanCommand();
-    private static CommandBase LIST_BAN_COMMAND = new ListBanCommand();
+    //private static CommandBase LIST_BAN_COMMAND = new ListBanCommand();
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -88,6 +89,9 @@ public class TimeBanMod
         
         FMLLog.log.info("player is death: {}", player.getName());
         
+        // change game mode
+        player.setGameType(GameType.SURVIVAL);
+        
         // drop all Items
         InventoryHelper.dropInventoryItems(player.world, player, player.inventory);
 
@@ -112,7 +116,7 @@ public class TimeBanMod
     public void renderName(PlayerEvent.NameFormat event)
     {
         if (event.getEntityPlayer().getName().equals("Balui")) {
-            event.setDisplayname("Der unf‰hige Feuermagier");
+            event.setDisplayname("Der unf√§hige Feuermagier");
         }
     }
 
